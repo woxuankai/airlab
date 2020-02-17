@@ -142,11 +142,11 @@ class PairwiseRegistration(_PairwiseRegistration):
                 if loss < self.loss:
                     n = 0
                     self.loss=loss
-                    best=deepcopy(self._transformation)
+                    best=self._transformation.state_dict()
                 else:
                     n += 1
                 if n > StopPatience:
-                    self._transformation = best
+                    self._transformation.load_state_dict(best)
                     return
         self.loss = loss
 
